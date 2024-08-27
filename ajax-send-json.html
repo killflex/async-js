@@ -28,7 +28,7 @@
         ajax.open("POST", "https://eozx23dgzqlyy5s.m.pipedream.net");
         ajax.addEventListener("load", function () {
           const response = document.getElementById("response");
-          response.innerHTML = JSON.parse(ajax.responseText);
+          response.innerHTML = ajax.responseText;
         });
         ajax.setRequestHeader("Content-Type", "application/json");
 
@@ -37,7 +37,10 @@
           password: document.getElementById("password").value,
         };
 
-        console.log(json.username);
+        if (json.username.trim() === "" && json.password.trim() === "") {
+          alert("Username and password cannot be empty");
+          return;
+        }
 
         ajax.send(JSON.stringify(json));
       }
