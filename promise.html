@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promise</title>
+  </head>
+  <body>
+    <form>
+      <label for="fullname">
+        Full Name:
+        <input type="text" id="fullname" name="fullname" />
+      </label>
+      <br />
+      <label for="username">
+        Username:
+        <input type="text" id="username" name="username" />
+      </label>
+      <br />
+      <button type="button" id="register">Register</button>
+    </form>
+
+    <h1 id="response"></h1>
+
+    <script>
+      function doRegister() {
+        const request = new Request("https://eo8bf0maz40qj58.m.pipedream.net", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            fullname: document.getElementById("fullname").value,
+            username: document.getElementById("username").value,
+          }),
+        });
+        const response = fetch(request);
+
+        response
+          .then((response) => console.log(response.json()))
+          .then(function (json) {
+            document.getElementById(
+              "response"
+            ).textContent = `Registration successful`;
+          });
+      }
+
+      document.getElementById("register").onclick = doRegister;
+    </script>
+  </body>
+</html>
