@@ -24,7 +24,7 @@
     <table>
       <thead>
         <tr>
-          <th>Fiter:</th>
+          <th><label for="search">Search:</label></th>
           <th><input type="text" name="search" id="search" /></th>
         </tr>
       </thead>
@@ -46,26 +46,35 @@
         }
       }
 
+      function addTodolist(todo) {
+        const tr = document.createElement("tr");
+        const tdButton = document.createElement("td");
+        const buttonDone = document.createElement("button");
+        buttonDone.textContent = "Done";
+        tdButton.appendChild(buttonDone);
+
+        tr.appendChild(tdButton);
+
+        const tdTodo = document.createElement("td");
+        tdTodo.textContent = todo;
+        tr.appendChild(tdTodo);
+
+        const todolistBody = document.getElementById("todolistBody");
+        todolistBody.appendChild(tr);
+      }
+
       function displayTodolist() {
         clearTodolist();
 
         for (let i = 0; i < todolist.length; i++) {
           const todo = todolist[i];
 
-          const tr = document.createElement("tr");
-          const tdButton = document.createElement("td");
-          const buttonDone = document.createElement("button");
-          buttonDone.textContent = "Done";
-          tdButton.appendChild(buttonDone);
-
-          tr.appendChild(tdButton);
-
-          const tdTodo = document.createElement("td");
-          tdTodo.textContent = todo;
-          tr.appendChild(tdTodo);
-
-          const todolistBody = document.getElementById("todolistBody");
-          todolistBody.appendChild(tr);
+          const searchText = document
+            .getElementById("search")
+            .value.toLowerCase();
+          if (todo.toLowerCase().includes(searchText)) {
+            addTodolist(todo);
+          }
         }
       }
 
@@ -84,6 +93,13 @@
         document.forms["todoForm"].reset();
         displayTodolist();
       };
+
+      const searchInput = document.getElementById("search");
+      searchInput.onkeydown = function () {
+        displayTodolist();
+      };
+
+      displayTodolist();
     </script>
   </body>
 </html>
