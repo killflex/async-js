@@ -7,11 +7,20 @@
   </head>
   <body>
     <script>
-      async function getNameAsync() {
-        return "Ferry Async";
+      async function getProduct() {
+        const req = fetch("https://eo8bf0maz40qj58.m.pipedream.net", {
+          method: "GET",
+        });
+
+        return response.then((req) => response.json(req));
       }
 
-      getNameAsync().then((name) => console.log(name));
+      async function getProductNameAsync() {
+        const product = await getProduct();
+        return product.name;
+      }
+
+      getProductNameAsync().then((productname) => console.log(productname));
     </script>
   </body>
 </html>
